@@ -27,3 +27,18 @@ The sample GitHub Actions workflow:
 
 * Builds the Windows Container for *both* Windows Server 2019 LTSC and Windows Server 2022 LTSC.
 * Detects and downloads the latest version of Nim by communicating with the GitHub REST API.
+
+## Windows Container
+
+To grab the Windows Container built here for use in your GitHub Actions:
+
+```
+jobs:
+  build:
+    runs-on: windows-2019
+    container:
+      image: docker.pkg.github.com/[username]/nim-windows-container/nimstable-ltsc2019:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+```
