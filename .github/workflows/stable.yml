@@ -13,7 +13,8 @@ jobs:
       - name: build image
         run: |
           $nim_version = ((Invoke-RestMethod -Uri https://api.github.com/repos/nim-lang/Nim/tags).Name | Select-Object -first 1).Trim("v")
-          docker build --tag nimstable-ltsc2022 --build-arg nim_version=$nim_version .
+          dir
+          docker build . --file Dockerfile --tag nimstable-ltsc2022 --build-arg nim_version=$nim_version
       - name: log into github registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
       - name: push image
@@ -25,7 +26,8 @@ jobs:
       - name: build image
         run: |
           $nim_version = ((Invoke-RestMethod -Uri https://api.github.com/repos/nim-lang/Nim/tags).Name | Select-Object -first 1).Trim("v")
-          docker build --file Dockerfile --tag nimstable-ltsc2019 --build-arg win_version=ltsc2019 nim_version=$nim_version .
+          dir
+          docker build . --file Dockerfile --tag nimstable-ltsc2019 --build-arg win_version=ltsc2019 nim_version=$nim_version
       - name: log into github registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
       - name: push image
