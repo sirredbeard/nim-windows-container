@@ -18,7 +18,7 @@ Nim is a compiled, garbage-collected systems programming language with a design 
 * [Nim in Action](https://www.manning.com/books/nim-in-action) - Book from Manning Publications
 * [What Is Nim? A brief introduction to the Nim programming language](https://www.youtube.com/watch?v=nKTLsUF9oyU) - YouTube video
 
-## DOCKERFILE
+## Dockerfile
 
 The sample [Dockerfile](https://github.com/sirredbeard/nim-windows-container/blob/main/Dockerfile) defaults to:
 
