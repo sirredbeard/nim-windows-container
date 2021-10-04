@@ -17,7 +17,7 @@ jobs:
       - name: log into github registry
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
       - name: push image
-        run: docker push nimstable-ltsc2022
+        run: docker push docker.pkg.github.com/${{ github.repository }}/nimstable-ltsc2022
   nimstable-ltsc2019:
     runs-on: windows-2019
     steps:
@@ -29,4 +29,4 @@ jobs:
       - name: log into github registry
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
       - name: push image
-        run: docker push nimstable-ltsc2019
+        run: docker push docker.pkg.github.com/${{ github.repository }}/nimstable-ltsc2019
