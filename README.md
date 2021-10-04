@@ -5,7 +5,7 @@ This repository contains:
 * A [DOCKERFILE](https://github.com/sirredbeard/nim-windows-container/blob/main/Dockerfile) that builds a Windows Server Core Container with [Nim](https://nim-lang.org/) and [Mingw-w64](https://www.mingw-w64.org/) dependencies as a starting point for building Nim applications in Windows Containers.
 * A [GitHub Actions workflow](https://github.com/sirredbeard/nim-windows-container/blob/main/.github/workflows/stable.yml) for deploying the Windows Container to the GitHub Container Registry.
 
-Working on Linux? See my GitHub Actions-automated [build of Nim snap packages](https://github.com/sirredbeard/nim_lang_snap).
+*Working on Linux? See my GitHub Actions-automated [build of Nim snap packages](https://github.com/sirredbeard/nim_lang_snap).*
 
 ## Nim
 
@@ -32,6 +32,8 @@ This sample [GitHub Actions workflow](https://github.com/sirredbeard/nim-windows
 --build-arg nim_version=$nim_version` overriding the default of 1.4.8.
 * Pushes the resulting container to the GitHub Container Registry.
 
+It is not currently possible to run Windows Containers on GitHub Actions at this time, the runner only supports Linux containers. [:(](https://github.com/actions/runner/issues/1402)
+
 ## Windows Container
 
 To use my builds:
@@ -54,7 +56,7 @@ To build and use the Windows Container yourself:
 
 * Fork this repo
 * Let GitHub build your own Windows Container
-* Grab your [GitHub Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) from [here](https://github.com/settings/tokens).
+* Grab your [GitHub Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) from [here](https://github.com/settings/tokens)
 * Give your PAT access to read packages<br>
 ![image](https://user-images.githubusercontent.com/33820650/135933784-450c5f7f-972e-472e-ab87-7e72532803b7.png)
 * Run
