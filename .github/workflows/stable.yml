@@ -16,8 +16,10 @@ jobs:
           docker build . --file Dockerfile --tag nimstable-ltsc2022 --build-arg nim_version=$nim_version
       - name: log into github registry
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-      - name: push image
-        run: docker push docker.pkg.github.com/${{ github.repository }}/nimstable-ltsc2022
+      - name: tag and push image
+        run: |
+          docker tag nimstable-ltsc2022 docker.pkg.github.com/sirredbeard/nim-windows-container/nimstable-ltsc2022:latest
+          docker push docker.pkg.github.com/${{ github.repository }}/nimstable-ltsc2022
   nimstable-ltsc2019:
     runs-on: windows-2019
     steps:
@@ -28,5 +30,7 @@ jobs:
           docker build . --file Dockerfile --tag nimstable-ltsc2019 --build-arg win_version=ltsc2019 --build-arg nim_version=$nim_version
       - name: log into github registry
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-      - name: push image
-        run: docker push docker.pkg.github.com/${{ github.repository }}/nimstable-ltsc2019
+      - name: tag and push image
+        run: |
+          docker tag nimstable-ltsc2019 docker.pkg.github.com/sirredbeard/nim-windows-container/nimstable-ltsc2019:latest
+          docker push docker.pkg.github.com/${{ github.repository }}/nimstable-ltsc2019
