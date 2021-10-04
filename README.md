@@ -18,32 +18,47 @@ Nim is a compiled, garbage-collected systems programming language with a design 
 
 ## DOCKERFILE
 
-The sample DOCKERFILE defaults to:
+The sample [DOCKERFILE](https://github.com/sirredbeard/nim-windows-container/blob/main/Dockerfile) defaults to:
 
 * Windows Server 2022 LTSC.
 * Nim 1.4.8, the current stable release of Nim. It is very likely by the time you are reading this that Nim has since been updated. Check [nim-lang releases](https://github.com/nim-lang/Nim/releases) for the latest release.
 
 ## GitHub Actions Workflow
 
-The sample GitHub Actions workflow:
+This sample [GitHub Actions workflow](https://github.com/sirredbeard/nim-windows-container/blob/main/.github/workflows/stable.yml):
 
-* Builds the Windows Container for *both* Windows Server 2019 LTSC and Windows Server 2022 LTSC. The default of Windows Server 2022 LTSC is overridden by passing `--build-arg win_version=ltsc2019` into the DOCKERFILE.
-* Detects and downloads the latest version of Nim by communicating with the GitHub REST API: ` $nim_version = ((Invoke-RestMethod -Uri https://api.github.com/repos/nim-lang/Nim/tags).Name | Select-Object -first 1).Trim("v") ` and passing resulting variable into the DOCKERFILE as a build argument: `
---build-arg nim_version=$nim_version` overriding the default, 1.4.8.
-
+* Builds the Windows Container for *both* Windows Server 2019 LTSC and Windows Server 2022 LTSC. The default of Windows Server 2022 LTSC is overridden for 2019 LTSC builds by passing `--build-arg win_version=ltsc2019` into the DOCKERFILE.
+* Detects and downloads the latest version of Nim by communicating with the GitHub REST API: ` $nim_version = ((Invoke-RestMethod -Uri https://api.github.com/repos/nim-lang/Nim/tags).Name | Select-Object -first 1).Trim("v") ` and passing the most recent version into the DOCKERFILE as a build argument: `
+--build-arg nim_version=$nim_version` overriding the default of 1.4.8.
 * Pushes the resulting container to the GitHub Container Registry.
 
 ## Windows Container
 
-To use the Windows Container in GitHub Actions, fork this repo, let it build your own Windows Container, and then pull it in to your GitHub Actions with:
+To use my builds:
 
+### Windows Server 2019
+
+`docker pull ghcr.io/sirredbeard/nim-windows-container/nimstable-ltsc2019:latest`
+
+GitHub Container Registry [page](https://github.com/sirredbeard/nim-windows-container/pkgs/container/nim-windows-container%2Fnimstable-ltsc2019).
+
+### Windows Server 2022
+
+`docker pull ghcr.io/sirredbeard/nim-windows-container/nimstable-ltsc2022:latest`
+
+GitHub Container Registry [page](https://github.com/sirredbeard/nim-windows-container/pkgs/container/nim-windows-container%2Fnimstable-ltsc2022).
+
+### Build Yourself 
+
+To build and use the Windows Container yourself:
+
+* Fork this repo
+* Let GitHub build your own Windows Container
+* Grab your [GitHub Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) from [here](https://github.com/settings/tokens).
+* Give your PAT access to read packages<br>
+![image](https://user-images.githubusercontent.com/33820650/135933784-450c5f7f-972e-472e-ab87-7e72532803b7.png)
+* Run
 ```
-jobs:
-  build:
-    runs-on: windows-2022
-    container:
-      image: docker.pkg.github.com/[username]/nim-windows-container/nimstable-ltsc2022:latest
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-```
+Set-Variable -Name "CR_PAT" -Value "<PAT>"
+echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+docker pull ghcr.io/<USERNAME>/nim-windows-container/nimstable-ltsc2019:latest``
