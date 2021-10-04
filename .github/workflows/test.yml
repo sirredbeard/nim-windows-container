@@ -1,0 +1,17 @@
+name: test
+on:
+  push:
+    branches:
+    - main
+jobs:
+  test-2019:
+    runs-on: windows-2019
+    container:
+      image: docker.pkg.github.com/sirredbeard/nim-windows-container/nimstable-ltsc2019:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run Hello World app
+      run: nim c -r helloworld.nim
