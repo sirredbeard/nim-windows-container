@@ -2,7 +2,7 @@
 
 This repository contains:
 
-* A [DOCKERFILE](https://github.com/sirredbeard/nim-windows-container/blob/main/Dockerfile) that builds a Windows Server Core Container with [Nim](https://nim-lang.org/) and [Mingw-w64](https://www.mingw-w64.org/) dependencies as a starting point for building Nim applications in Windows Containers.
+* A [Dockerfile](https://github.com/sirredbeard/nim-windows-container/blob/main/Dockerfile) that builds a Windows Server Core Container with [Nim](https://nim-lang.org/) and [Mingw-w64](https://www.mingw-w64.org/) dependencies as a starting point for building Nim applications in Windows Containers.
 * A [GitHub Actions workflow](https://github.com/sirredbeard/nim-windows-container/blob/main/.github/workflows/stable.yml) for deploying the Windows Container to the GitHub Container Registry.
 
 *Working on Linux? See my GitHub Actions-automated [build of Nim snap packages](https://github.com/sirredbeard/nim_lang_snap).*
@@ -18,7 +18,7 @@ Nim is a compiled, garbage-collected systems programming language with a design 
 
 ## DOCKERFILE
 
-The sample [DOCKERFILE](https://github.com/sirredbeard/nim-windows-container/blob/main/Dockerfile) defaults to:
+The sample [Dockerfile](https://github.com/sirredbeard/nim-windows-container/blob/main/Dockerfile) defaults to:
 
 * Windows Server 2022 LTSC.
 * Nim 1.4.8, the current stable release of Nim. It is very likely by the time you are reading this that Nim has since been updated. Check [nim-lang releases](https://github.com/nim-lang/Nim/releases) for the latest release.
@@ -28,8 +28,8 @@ The sample [DOCKERFILE](https://github.com/sirredbeard/nim-windows-container/blo
 This sample [GitHub Actions workflow](https://github.com/sirredbeard/nim-windows-container/blob/main/.github/workflows/stable.yml):
 
 * Builds the Windows Container for *both* Windows Server 2019 LTSC and Windows Server 2022 LTSC. The default of Windows Server 2022 LTSC is overridden for 2019 LTSC builds by passing `--build-arg win_version=ltsc2019` into the DOCKERFILE.
-* Detects and downloads the latest version of Nim by communicating with the GitHub REST API: ` $nim_version = ((Invoke-RestMethod -Uri https://api.github.com/repos/nim-lang/Nim/tags).Name | Select-Object -first 1).Trim("v") ` and passing the most recent version into the DOCKERFILE as a build argument: `
---build-arg nim_version=$nim_version` overriding the default of 1.4.8.
+* Detects and downloads the latest version of Nim by communicating with the GitHub REST API: ` $nim_version = ((Invoke-RestMethod -Uri https://api.github.com/repos/nim-lang/Nim/tags).Name | Select-Object -first 1).Trim("v") ` and passing the most recent version into the Dockerfile as a build argument: `
+--build-arg nim_version=$nim_version`, overriding the default of 1.4.8.
 * Pushes the resulting container to the GitHub Container Registry.
 
 It is not currently possible to run Windows Containers on GitHub Actions at this time, the runner only supports Linux containers. [:(](https://github.com/actions/runner/issues/1402)
@@ -52,12 +52,13 @@ GitHub Container Registry [page](https://github.com/sirredbeard/nim-windows-cont
 
 ### Build Yourself 
 
-To build and use the Windows Container yourself:
+To build and use the Windows Container yourself, you can use the Dockerfile, or:
 
 * Fork this repo
 * Let GitHub build your own Windows Container
 * Grab your [GitHub Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) from [here](https://github.com/settings/tokens)
-* Give your PAT access to read packages<br>
+* Give your PAT access to read packages
+
 ![image](https://user-images.githubusercontent.com/33820650/135933784-450c5f7f-972e-472e-ab87-7e72532803b7.png)
 * Run
 ```
