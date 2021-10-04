@@ -29,7 +29,7 @@ The sample [Dockerfile](https://github.com/sirredbeard/nim-windows-container/blo
 
 This sample [GitHub Actions workflow](https://github.com/sirredbeard/nim-windows-container/blob/main/.github/workflows/stable.yml):
 
-* Builds the Windows Container for *both* Windows Server 2019 LTSC and Windows Server 2022 LTSC. The default of Windows Server 2022 LTSC is overridden for 2019 LTSC builds by passing `--build-arg win_version=ltsc2019` into the DOCKERFILE.
+* Builds the Windows Container for *both* Windows Server 2019 LTSC and Windows Server 2022 LTSC. The default of Windows Server 2022 LTSC is overridden for 2019 LTSC builds by passing `--build-arg win_version=ltsc2019` into the Dockerfile.
 * Detects and downloads the latest version of Nim by communicating with the GitHub REST API: ` $nim_version = ((Invoke-RestMethod -Uri https://api.github.com/repos/nim-lang/Nim/tags).Name | Select-Object -first 1).Trim("v") ` and passing the most recent version into the Dockerfile as a build argument: `
 --build-arg nim_version=$nim_version`, overriding the default of 1.4.8.
 * Pushes the resulting container to the GitHub Container Registry.
