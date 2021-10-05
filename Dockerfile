@@ -25,7 +25,7 @@ RUN Get-ChildItem -Path 'c:\' | Where-Object { $_.Name -like 'nim-*' } | %{ Rena
 # Change our Docker work directory to our extracted Nim location
 WORKDIR "c:\nim"
 
-# Run the Nim programming language Windows post-install tool to set environmental variables and download Mingw-w64, see https://github.com/nim-lang/Nim/blob/devel/tools/finish.nim 
+# Run the Nim programming language Windows post-install tool to download Mingw-w64 and set Nim and Mingw-w64 path variables, see https://github.com/nim-lang/Nim/blob/devel/tools/finish.nim 
 RUN "./finish.exe -y"
 
 # Refresh the Nim package manager cache, see https://github.com/nim-lang/nimble
