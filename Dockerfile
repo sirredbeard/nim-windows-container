@@ -7,7 +7,7 @@ FROM mcr.microsoft.com/windows/servercore:$win_version as build
 # Set our shell to PowerShell and specify error handling
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
-# Set our default Nim version, see the note in README.md, this is automatically overridden by the GitHub Actions workflow
+# Set our default Nim version, see the note in README.md, this is automatically overridden by the GitHub Actions workflow with the latest versions polled from GitHub
 ARG nim_version=1.4.8
 
 # Build our Nim download URL using our Nim version
@@ -45,6 +45,22 @@ RUN "[Environment]::SetEnvironmentVariable('Path', '${env:Path};C:\nim\bin;C:\ni
 
 # Copy the c:\nim directory from the build container
 COPY --from=build "c:\nim" "c:\nim"
+
+# Set our default MinGit version, see the note in README.md, these are automatically overridden by the GitHub Actions workflow with the latest versions polled from GitHub
+ARG mingit_full_version=2.33.0.windows.2
+ARG mingit_short_version=2.33.0.2
+
+# Build our MinGit download URL using our MinGit version
+ARG mingit_uri="https://github.com/git-for-windows/git/releases/download/v"$mingit_full_version"/MinGit-"$mingit_short_version"-64-bit.zip"
+
+# Download compiled MinGit binaries, saving them as mingit.zip to simplify things
+RUN Invoke-WebRequest -Uri $env:mingit_uri -OutFile mingit.zip
+
+# Expand mingit.zip to c:\nim\dist
+RUN Expand-Archive -Path 'mingit.zip' -DestinationPath 'c:\mingit\'
+
+# Add mingit to PATH
+RUN $env:PATH = $env:PATH + ';c:\mingit\cmd'
 
 # Refresh the Nim package manager cache, see https://github.com/nim-lang/nimble
 RUN "nimble update"
