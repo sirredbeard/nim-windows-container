@@ -53,16 +53,14 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 # Change our Docker work directory to our extracted Nim location
 WORKDIR "c:\nim"
 
-# Set the Path environment variable to include nim, mingw, and nimble locations (ported from finish.exe)
-RUN "[Environment]::SetEnvironmentVariable('Path', '${env:Path};C:\nim\bin;C:\nim\dist\mingw64\bin;${env:USERPROFILE}\.nimble\bin', [System.EnvironmentVariableTarget]::User)"
+# Set the Path environment variable to include nim, mingw, mingit, and nimble locations (ported from finish.exe)
+RUN "[Environment]::SetEnvironmentVariable('Path', '${env:Path};C:\nim\bin;C:\nim\dist\mingw64\bin;${env:USERPROFILE}\.nimble\bin;c:\mingit\cmd', [System.EnvironmentVariableTarget]::User)"
 
 # Copy the c:\nim directory from the build container
 COPY --from=build "c:\nim" "c:\nim"
 
-
-
-# Add mingit to PATH
-RUN $env:PATH = $env:PATH + ';c:\mingit\cmd'
+# Copy the c:\nim directory from the build container
+COPY --from=build "c:\mingit" "c:\mingit"
 
 # Refresh the Nim package manager cache, see https://github.com/nim-lang/nimble
 RUN "nimble update"
