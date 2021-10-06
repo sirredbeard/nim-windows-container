@@ -39,10 +39,10 @@ ARG mingit_uri="https://github.com/git-for-windows/git/releases/download/v"$ming
 RUN Invoke-WebRequest -Uri $env:mingit_uri -OutFile mingit.zip
 
 # Expand mingit.zip to c:\nim\dist
-RUN Expand-Archive -Path 'mingit.zip' -DestinationPath 'c:\nim\dist\'
+RUN Expand-Archive -Path 'mingit.zip' -DestinationPath 'c:\mingit\'
 
 # Add mingit to PATH
-RUN $env:PATH = $env:PATH + ';c:\nim\dist\mingit\cmd'
+RUN $env:PATH = $env:PATH + ';c:\mingit\cmd'
 
 # Refresh the Nim package manager cache, see https://github.com/nim-lang/nimble
 RUN "nimble update"
