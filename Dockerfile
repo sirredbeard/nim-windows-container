@@ -2,7 +2,7 @@
 ARG win_version=ltsc2022
 
 # Pull our Windows Container from the Microsoft Container Reigstry
-FROM mcr.microsoft.com/windows/servercore:$win_version
+FROM mcr.microsoft.com/windows/servercore:$win_version as build
 
 # Set our shell to PowerShell and specify error handling
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
@@ -22,11 +22,29 @@ RUN Expand-Archive -Path 'nim.zip' -DestinationPath 'c:\'
 # Rename the resulting extracted directory, e.g. c:\nim-1.4.8, to just c:\nim, to provide a consistent location
 RUN Get-ChildItem -Path 'c:\' | Where-Object { $_.Name -like 'nim-*' } | %{ Rename-Item -LiteralPath $_.FullName -NewName 'nim' }
 
+# Download compatible mingw binaries as mingw.7z (ported from finish.exe)
+RUN Invoke-WebRequest -Uri "https://nim-lang.org/download/mingw64.7z" -OutFile mingw.7z
+
+# Expand mingw.7z to c:\nim\dist (ported from finish.exe)
+RUN cd "c:\nim\dist"; "c:\nim\bin\7zG.exe" x "c:\mingw.7z"
+
+
+#---
+
+
+FROM mcr.microsoft.com/windows/servercore:$win_version
+
+# Set our shell to PowerShell and specify error handling
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
+
 # Change our Docker work directory to our extracted Nim location
 WORKDIR "c:\nim"
 
-# Run the Nim programming language Windows post-install tool to download Mingw-w64 and set Nim and Mingw-w64 path variables, see https://github.com/nim-lang/Nim/blob/devel/tools/finish.nim 
-RUN "./finish.exe -y"
+# Set the Path environment variable to include nim, mingw, and nimble locations (ported from finish.exe)
+RUN "[Environment]::SetEnvironmentVariable('Path', '${env:Path};C:\nim\bin;C:\nim\dist\mingw64\bin;${env:USERPROFILE}\.nimble\bin', [System.EnvironmentVariableTarget]::User)"
+
+# Copy the c:\nim directory from the build container
+COPY --from=build "c:\nim" "c:\nim"
 
 # Set our default MinGit version, see the note in README.md, these are automatically overridden by the GitHub Actions workflow with the latest versions polled from GitHub
 ARG mingit_full_version=2.33.0.windows.2
@@ -46,7 +64,3 @@ RUN $env:PATH = $env:PATH + ';c:\mingit\cmd'
 
 # Refresh the Nim package manager cache, see https://github.com/nim-lang/nimble
 RUN "nimble update"
-
-# Clean up some artifacts, to try to keep this Windows Container as light as possible
-RUN Remove-Item c:\nim.zip
-RUN Remove-Item c:\nim\dist\mingw64.7z
