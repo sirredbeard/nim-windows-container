@@ -1,7 +1,7 @@
 # Set our default Windows Server LTSC version to 2022
 ARG win_version=ltsc2022
 
-# Pull our Windows Container from the Microsoft Container Reigstry
+# Pull our Windows Container from the Microsoft Container Registry
 FROM mcr.microsoft.com/windows/servercore:$win_version as build
 
 # Set our shell to PowerShell and specify error handling
@@ -31,7 +31,7 @@ RUN cd "c:\nim\dist"; "c:\nim\bin\7zG.exe" x "c:\mingw.7z"
 
 #---
 
-
+# Pull our Windows Container from the Microsoft Container Registry
 FROM mcr.microsoft.com/windows/servercore:$win_version
 
 # Set our shell to PowerShell and specify error handling
