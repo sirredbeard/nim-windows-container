@@ -38,8 +38,8 @@ ARG mingit_uri="https://github.com/git-for-windows/git/releases/download/v"$ming
 # Download compiled MinGit binaries, saving them as mingit.zip to simplify things
 RUN Invoke-WebRequest -Uri $env:mingit_uri -OutFile mingit.zip
 
-# Expand mingit.zip to c:\nim\dist
-RUN Expand-Archive -Path 'mingit.zip' -DestinationPath 'c:\mingit\'
+# Expand mingit.zip to c:\nim\dist\mingit\
+RUN Expand-Archive -Path 'mingit.zip' -DestinationPath 'c:\nim\dist\mingit\'
 
 
 #---
@@ -54,13 +54,10 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 WORKDIR "c:\nim"
 
 # Set the Path environment variable to include nim, mingw, mingit, and nimble locations (ported from finish.exe)
-RUN "[Environment]::SetEnvironmentVariable('Path', '${env:Path};C:\nim\bin;C:\nim\dist\mingw64\bin;${env:USERPROFILE}\.nimble\bin;c:\mingit\cmd', [System.EnvironmentVariableTarget]::User)"
+RUN "[Environment]::SetEnvironmentVariable('Path', '${env:Path};C:\nim\bin;C:\nim\dist\mingw64\bin;${env:USERPROFILE}\.nimble\bin;c:\nim\dist\mingit\cmd', [System.EnvironmentVariableTarget]::User)"
 
 # Copy the c:\nim directory from the build container
 COPY --from=build "c:\nim" "c:\nim"
-
-# Copy the c:\nim directory from the build container
-COPY --from=build "c:\mingit" "c:\mingit"
 
 # Refresh the Nim package manager cache, see https://github.com/nim-lang/nimble
 RUN "nimble update"
