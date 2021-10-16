@@ -36,6 +36,7 @@ ARG mingit_short_version=2.33.0.2
 ARG mingit_uri="https://github.com/git-for-windows/git/releases/download/v"$mingit_full_version"/MinGit-"$mingit_short_version"-64-bit.zip"
 
 # Download compiled MinGit binaries, saving them as mingit.zip to simplify things
+RUN echo "$env:mingit_uri": $env:mingit_uri
 RUN Invoke-WebRequest -Uri $env:mingit_uri -OutFile mingit.zip
 
 # Expand mingit.zip to c:\nim\dist\mingit\
