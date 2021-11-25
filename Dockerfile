@@ -33,7 +33,8 @@ ARG mingit_full_version=2.33.0.windows.2
 ARG mingit_short_version=2.33.0.2
 
 # Build our MinGit download URL using our MinGit version
-ARG mingit_uri="https://github.com/git-for-windows/git/releases/download/v"$mingit_full_version"/MinGit-"$mingit_short_version"-64-bit.zip"
+#ARG mingit_uri="https://github.com/git-for-windows/git/releases/download/v"$mingit_full_version"/MinGit-"$mingit_short_version"-64-bit.zip"
+ARG mingit_uri="https://github.com/git-for-windows/git/releases/download/v2.34.0.windows.1/MinGit-2.34.0-64-bit.zip"
 
 # Download compiled MinGit binaries, saving them as mingit.zip to simplify things
 RUN echo "$env:mingit_uri": $env:mingit_uri
