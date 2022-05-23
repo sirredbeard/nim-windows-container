@@ -7,8 +7,6 @@ This repository contains:
 * A [Dockerfile](https://github.com/sirredbeard/nim-windows-container/blob/main/Dockerfile) that builds a Windows Server Core Container with [Nim](https://nim-lang.org/) and [Mingw-w64](https://www.mingw-w64.org/) dependencies as a starting point for building Nim applications in Windows Containers.
 * A [GitHub Actions workflow](https://github.com/sirredbeard/nim-windows-container/blob/main/.github/workflows/stable.yml) for deploying the Windows Container to the GitHub Container Registry.
 
-*Working on Linux? See my GitHub Actions-automated [build of Nim snap packages](https://github.com/sirredbeard/nim_lang_snap).*
-
 ## Nim
 
 Nim is a compiled, garbage-collected systems programming language with a design that focuses on efficiency, expressiveness, and elegance.
