@@ -1,4 +1,5 @@
 ![Untitled3](https://user-images.githubusercontent.com/33820650/135938247-73d13189-29bd-4da0-a914-732b9145dce8.png)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsirredbeard%2Fnim-windows-container.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsirredbeard%2Fnim-windows-container?ref=badge_shield)
 
 # Nim Windows Container
 
@@ -65,3 +66,7 @@ To build and use the Windows Container yourself, you can use the Dockerfile, or:
 Set-Variable -Name "CR_PAT" -Value "<PAT>"
 echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
 docker pull ghcr.io/<USERNAME>/nim-windows-container/nimstable-ltsc2019:latest``
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsirredbeard%2Fnim-windows-container.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsirredbeard%2Fnim-windows-container?ref=badge_large)
