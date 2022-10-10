@@ -11,8 +11,8 @@ This repository contains:
 
 Nim is a compiled, garbage-collected systems programming language with a design that focuses on efficiency, expressiveness, and elegance.
 
-* [Learn Nim](https://nim-lang.org/learn.html) - Tutorial
-* [Documentation](https://nim-lang.org/documentation.html) - Documentation
+* [Learn Nim](https://nim-lang.org/learn.html) - Nim Tutorial
+* [Documentation](https://nim-lang.org/documentation.html) - Nim Documentation
 * [Nim in Action](https://www.manning.com/books/nim-in-action) - Book from Manning Publications
 * [What Is Nim? A brief introduction to the Nim programming language](https://www.youtube.com/watch?v=nKTLsUF9oyU) - YouTube video
 
