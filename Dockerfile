@@ -8,7 +8,7 @@ FROM mcr.microsoft.com/windows/servercore:$win_version as build
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
 # Set our default Nim version, see the note in README.md, this is automatically overridden by the GitHub Actions workflow with the latest versions polled from GitHub
-ARG nim_version=1.4.8
+ARG nim_version=1.6.12
 
 # Build our Nim download URL using our Nim version
 ARG nim_uri="https://nim-lang.org/download/nim-"$nim_version"_x64.zip"
