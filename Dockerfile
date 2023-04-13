@@ -63,5 +63,8 @@ RUN "[Environment]::SetEnvironmentVariable('Path', '${env:Path};C:\nim\bin;C:\ni
 # Copy the c:\nim directory from the build container
 COPY --from=build "c:\nim" "c:\nim"
 
+# Run Nim finish.exe non-interactively to complete Nim environment
+RUN "C:\nim\finish.exe -y"
+
 # Refresh the Nim package manager cache, see https://github.com/nim-lang/nimble
 RUN "nimble update"
