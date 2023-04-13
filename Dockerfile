@@ -43,6 +43,8 @@ RUN Invoke-WebRequest -Uri $env:mingit_uri -OutFile mingit.zip
 # Expand mingit.zip to c:\nim\dist\mingit\
 RUN Expand-Archive -Path 'mingit.zip' -DestinationPath 'c:\nim\dist\mingit\'
 
+# Download Nim container pause application
+RUN Invoke-WebRequest -Uri https://github.com/sirredbeard/nim-pause/releases/download/0.1/pause.exe -OutFile C:\nim\pause.exe
 
 #---
 

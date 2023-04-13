@@ -36,7 +36,7 @@ It is not currently possible to run Windows Containers on GitHub Actions at this
 
 ## Windows Container
 
-To use my builds:
+To use the builds:
 
 ### Windows Server 2019
 
