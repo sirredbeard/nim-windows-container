@@ -42,11 +42,15 @@ To use the builds:
 
 `docker pull ghcr.io/sirredbeard/nim-windows-container/nimstable-ltsc2019:latest`
 
+`docker run ghcr.io/sirredbeard/nim-windows-container/nimstable-ltsc2019:latest c:\nim\pause.exe`
+
 GitHub Container Registry [page](https://github.com/sirredbeard/nim-windows-container/pkgs/container/nim-windows-container%2Fnimstable-ltsc2019).
 
 ### Windows Server 2022
 
 `docker pull ghcr.io/sirredbeard/nim-windows-container/nimstable-ltsc2022:latest`
+
+`docker run ghcr.io/sirredbeard/nim-windows-container/nimstable-ltsc2022:latest c:\nim\pause.exe`
 
 GitHub Container Registry [page](https://github.com/sirredbeard/nim-windows-container/pkgs/container/nim-windows-container%2Fnimstable-ltsc2022).
 
