@@ -21,30 +21,22 @@ Nim is a compiled, garbage-collected systems programming language with a design 
 The sample [Dockerfile](https://github.com/sirredbeard/nim-windows-container/blob/main/Dockerfile) defaults to:
 
 * Windows Server 2022 LTSC.
-* Nim 1.4.8, the current stable release of Nim. It is very likely by the time you are reading this that Nim has since been updated. Check [nim-lang releases](https://github.com/nim-lang/Nim/releases) for the latest release.
+* Nim 1.6.12, the current stable release of Nim. It is very likely by the time you are reading this that Nim has since been updated. Check [nim-lang releases](https://github.com/nim-lang/Nim/releases) for the latest release.
 
 ## GitHub Actions Workflow
 
 This sample [GitHub Actions workflow](https://github.com/sirredbeard/nim-windows-container/blob/main/.github/workflows/stable.yml):
 
-* Builds the Windows Container for *both* Windows Server 2019 LTSC and Windows Server 2022 LTSC. The default of Windows Server 2022 LTSC is overridden for 2019 LTSC builds by passing `--build-arg win_version=ltsc2019` into the Dockerfile.
+* Builds the Windows Container for and Windows Server 2022 LTSC. 
 * Detects and downloads the latest version of Nim by communicating with the GitHub REST API: ` $nim_version = ((Invoke-RestMethod -Uri https://api.github.com/repos/nim-lang/Nim/tags).Name | Select-Object -first 1).Trim("v") ` and passing the most recent version into the Dockerfile as a build argument: `
---build-arg nim_version=$nim_version`, overriding the default of 1.4.8.
+--build-arg nim_version=$nim_version`, overriding the default of 1.6.12.
 * Pushes the resulting container to the GitHub Container Registry.
 
 It is not currently possible to run Windows Containers on GitHub Actions at this time, the runner only supports Linux containers. [:(](https://github.com/actions/runner/issues/1402)
 
 ## Windows Container
 
-To use the builds:
-
-### Windows Server 2019
-
-`docker pull ghcr.io/sirredbeard/nim-windows-container/nimstable-ltsc2019:latest`
-
-`docker run ghcr.io/sirredbeard/nim-windows-container/nimstable-ltsc2019:latest c:\nim\pause.exe`
-
-GitHub Container Registry [page](https://github.com/sirredbeard/nim-windows-container/pkgs/container/nim-windows-container%2Fnimstable-ltsc2019).
+To use the build:
 
 ### Windows Server 2022
 
