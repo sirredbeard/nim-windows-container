@@ -25,7 +25,7 @@ The sample [Dockerfile](https://github.com/sirredbeard/nim-windows-container/blo
 
 ## GitHub Actions Workflow
 
-This sample [GitHub Actions workflow](https://github.com/sirredbeard/nim-windows-container/blob/main/.github/workflows/stable.yml):
+The sample [GitHub Actions workflow](https://github.com/sirredbeard/nim-windows-container/blob/main/.github/workflows/stable.yml):
 
 * Builds the Windows Container for and Windows Server 2022 LTSC. 
 * Detects and downloads the latest version of Nim by communicating with the GitHub REST API: ` $nim_version = ((Invoke-RestMethod -Uri https://api.github.com/repos/nim-lang/Nim/tags).Name | Select-Object -first 1).Trim("v") ` and passing the most recent version into the Dockerfile as a build argument: `
@@ -36,7 +36,7 @@ It is not currently possible to run Windows Containers on GitHub Actions at this
 
 ## Windows Container
 
-To use the build:
+To use the container:
 
 ### Windows Server 2022
 
@@ -53,10 +53,10 @@ To build and use the Windows Container yourself, you can use the Dockerfile, or:
 * Fork this repo
 * Let GitHub build your own Windows Container
 * Grab your [GitHub Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) from [here](https://github.com/settings/tokens)
-* Give your PAT access to read packages
+* Give your PAT access to read packages:
 
 ![image](https://user-images.githubusercontent.com/33820650/135933784-450c5f7f-972e-472e-ab87-7e72532803b7.png)
-* Run
+* Run:
 ```
 Set-Variable -Name "CR_PAT" -Value "<PAT>"
 echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
