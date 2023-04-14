@@ -28,12 +28,7 @@ RUN Invoke-WebRequest -Uri "https://nim-lang.org/download/mingw64.7z" -OutFile m
 # Expand mingw.7z to c:\nim\dist (ported from finish.exe)
 RUN cd "c:\nim\dist"; "c:\nim\bin\7zG.exe" x "c:\mingw.7z"
 
-# Set our default MinGit version, see the note in README.md, these are automatically overridden by the GitHub Actions workflow with the latest versions polled from GitHub
-ARG mingit_full_version=2.33.0.windows.2
-ARG mingit_short_version=2.33.0.2
-
 # Build our MinGit download URL using our MinGit version
-#ARG mingit_uri="https://github.com/git-for-windows/git/releases/download/v"$mingit_full_version"/MinGit-"$mingit_short_version"-64-bit.zip"
 ARG mingit_uri="https://github.com/git-for-windows/git/releases/download/v2.40.0.windows.1/MinGit-2.40.0-64-bit.zip"
 
 # Download compiled MinGit binaries, saving them as mingit.zip to simplify things
