@@ -53,7 +53,7 @@ As Administator, open PowerShell, and enable Windows Containers:
 * A container runtime that supports Windows Containers:
 
     * Docker Desktop: Install [Docker Desktop](https://docs.docker.com/desktop/) and [specify use of Windows Containers](https://learn.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment?tabs=dockerce#windows-10-and-11-1)
-    * Docker CE: Install the Docker freely distributed binaries using [this guide](https://boxofcables.dev/a-lightweight-windows-container-dev-environment/).
+    * Docker CE: Install the Docker freely distributed binaries using [this guide](https://boxofcables.dev/a-lightweight-windows-container-dev-environment/)
 
 
 ### Windows Server 2022 Core LTSC base
@@ -66,11 +66,11 @@ To start the Windows Container on pause, so you can exec in:
 
 `docker run ghcr.io/sirredbeard/nim-windows-container/nimstable-ltsc2022:latest pause.exe`
 
-GitHub Container Registry [page](https://github.com/sirredbeard/nim-windows-container/pkgs/container/nim-windows-container%2Fnimstable-ltsc2022).
+Also see the GitHub Container Registry [page](https://github.com/sirredbeard/nim-windows-container/pkgs/container/nim-windows-container%2Fnimstable-ltsc2022).
 
 ### Build Yourself 
 
-To build and use the Windows Container yourself, you can use the Dockerfile, or:
+To build and use the Windows Container yourself, you can use the Dockerfile and build locally, or:
 
 * Fork this repo
 * Let GitHub build your own Windows Container
