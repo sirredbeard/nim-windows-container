@@ -42,7 +42,7 @@ To use the container:
 
 `docker pull ghcr.io/sirredbeard/nim-windows-container/nimstable-ltsc2022:latest`
 
-`docker run ghcr.io/sirredbeard/nim-windows-container/nimstable-ltsc2022:latest c:\nim\pause.exe`
+`docker run ghcr.io/sirredbeard/nim-windows-container/nimstable-ltsc2022:latest pause.exe`
 
 GitHub Container Registry [page](https://github.com/sirredbeard/nim-windows-container/pkgs/container/nim-windows-container%2Fnimstable-ltsc2022).
 
