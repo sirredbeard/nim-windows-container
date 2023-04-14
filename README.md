@@ -4,13 +4,14 @@
 
 This repository contains:
 
-* A [Dockerfile](https://github.com/sirredbeard/nim-windows-container/blob/main/Dockerfile) that builds a Windows Server Core Container with [Nim](https://nim-lang.org/) and [Mingw-w64](https://www.mingw-w64.org/) dependencies as a starting point for building Nim applications in Windows Containers.
+* A [Dockerfile](https://github.com/sirredbeard/nim-windows-container/blob/main/Dockerfile) that builds a Windows Server Core Container with [Nim](https://nim-lang.org/), [MinGit](https://github.com/git-for-windows/git/wiki/MinGit), and [Mingw-w64](https://www.mingw-w64.org/) dependencies as a starting point for building Nim applications in Windows Containers.
 * A [GitHub Actions workflow](https://github.com/sirredbeard/nim-windows-container/blob/main/.github/workflows/stable.yml) for deploying the Windows Container to the GitHub Container Registry.
 
 ## Nim
 
 Nim is a compiled, garbage-collected systems programming language with a design that focuses on efficiency, expressiveness, and elegance.
 
+* [Nim](https://github.com/nim-lang/Nim) - Nim GitHub repo
 * [Learn Nim](https://nim-lang.org/learn.html) - Nim Tutorial
 * [Documentation](https://nim-lang.org/documentation.html) - Nim Documentation
 * [Nim in Action](https://www.manning.com/books/nim-in-action) - Book from Manning Publications
@@ -21,7 +22,7 @@ Nim is a compiled, garbage-collected systems programming language with a design 
 The sample [Dockerfile](https://github.com/sirredbeard/nim-windows-container/blob/main/Dockerfile) defaults to:
 
 * Windows Server 2022 LTSC.
-* Nim 1.6.12, the current stable release of Nim. It is very likely by the time you are reading this that Nim has since been updated. Check [nim-lang releases](https://github.com/nim-lang/Nim/releases) for the latest release.
+* Nim 1.6.12, the current stable release of Nim. It is very likely by the time you are reading this that Nim has since been updated. Check [nim-lang releases](https://github.com/nim-lang/Nim/releases) for the latest release. See the GitHub Actions below for how the latest version is automatically pulled in to the Windows Container published here.
 
 ## GitHub Actions Workflow
 
@@ -36,11 +37,32 @@ It is not currently possible to run Windows Containers on GitHub Actions at this
 
 ## Windows Container
 
-To use the container:
+### Prerequisites for Windows Containers
 
-### Windows Server 2022
+To use the Windows Container, you'll need:
+
+* Windows 10/11 Pro or Enterprise editions or Windows Server 2022
+* To enable Windows Containers:
+
+As Administator, open PowerShell, and enable Windows Containers:
+
+`Enable-WindowsOptionalFeature -Online -FeatureName containers –All`
+
+`Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V –All`
+
+* A container runtime that supports Windows Containers:
+
+    * Docker Desktop: Install [Docker Desktop](https://docs.docker.com/desktop/) and [specify use of Windows Containers](https://learn.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment?tabs=dockerce#windows-10-and-11-1)
+    * Docker CE: Install the Docker freely distributed binaries using [this guide](https://boxofcables.dev/a-lightweight-windows-container-dev-environment/).
+
+
+### Windows Server 2022 Core LTSC base
+
+To get the Windows Container:
 
 `docker pull ghcr.io/sirredbeard/nim-windows-container/nimstable-ltsc2022:latest`
+
+To start the Windows Container on pause, so you can exec in:
 
 `docker run ghcr.io/sirredbeard/nim-windows-container/nimstable-ltsc2022:latest pause.exe`
 
